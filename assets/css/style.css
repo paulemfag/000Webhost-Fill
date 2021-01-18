@@ -1,0 +1,119 @@
+html,body{
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.content {
+  flex: 1 0 auto;
+}
+
+#compositions{
+  background: rgb(2,0,36);
+  background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,121,80,1) 35%, rgba(0,212,255,1) 100%);
+}
+
+.compositionsTablesTextColor{
+  color: #7CAA93;
+}
+
+body{
+  background-image: url('../img/universe-4609408_1280.jpg');
+  display: flex;
+  flex-direction: column;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#newplaylist{
+  font-color: blue;
+  background-color: transparent;
+  border: transparent;
+  border: none;
+}
+
+img[src="https://cdn.000webhost.com/000webhost/logo/footer-powered-by-000webhost-white2.png"]{
+  display: none;
+}
+
+audio{
+  height: 20px;
+}
+
+.indexhref{
+  font-weight: bold;
+}
+
+.captcha{
+  text-align: center;
+}
+
+.inputColor{
+  color : #114E7F;
+  background-color: #fff;;
+  opacity: 0.8;
+}
+
+#fileInput{
+  opacity: 0.8;
+  color: #114E7F;
+}
+
+.compositionsTables{
+  background-color: #7C66A5;
+}
+
+.noResize{
+  resize: none;
+  border: none;
+  background-color: #114E7F;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  background-color: #727d87;
+}
+
+.modal > .modal-dialog > .modal-content{
+  background-color: #BD5C44;
+}
+
+h1{
+  font-family: 'Odibee Sans', cursive;
+  color: #113E7F;
+  font-weight: bold;
+}
+
+h2{
+  font-family: 'Odibee Sans', cursive;
+  color: #113E7F;
+  font-weight: bold;
+}
+
+.opacity{
+  opacity: 0.5;
+}
+
+#parameters{
+  list-style: none;
+}
+
+#big_text{
+  height: 60px;
+}
+
+.table{
+  position: fixed;
+}
+
+.fa-home{
+  font-size: 7.8vh;
+}
+
+footer{
+  flex-shrink: 0;
+  margin-top: 60px;
+  position: fixed;
+  left: 0;
+  bottom : 0;
+  width: 100%;
+}
