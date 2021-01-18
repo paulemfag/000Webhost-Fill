@@ -1,7 +1,8 @@
 <?php
-$search = $_GET['search'];
-$searchValue = $_POST['searchValue'];
-if (isset($search)){
+$search = $_GET['search'] ?? '';
+$searchValue = $_POST['searchValue'] ?? '';
+/*if (isset($search)){
+    echo 'test';
     try {
         //Récupération des informations de la table topic
         $topicQueryStat = $db->query("SELECT `id`, `title`, DATE_FORMAT(`created_at`, 'le %d/%m/%Y\ à %HH%i') `created_at_formatted`, DATE_FORMAT(`updated_at`, 'le %d/%m/%Y\ à %HH%i') `updated_at`, `id_users` FROM `topics` WHERE `title` = ". $searchValue ." ORDER BY `created_at` DESC LIMIT $start, $limit");
@@ -9,12 +10,12 @@ if (isset($search)){
     } catch (Exception $ex) {
         die('Connexion échoué');
     }
-    $topicList = $topicQueryStat->fetchAll(PDO::FETCH_ASSOC);?>
-    <?php foreach ($topicList AS $topic): ?>
+    $topicList = $topicQueryStat->fetchAll(PDO::FETCH_ASSOC);*/?><!--
+    <?php /*foreach ($topicList AS $topic): */?>
         <tr class="shadow">
-        <td><a class="text-dark" title="<?= $topic['title'] ?>" href="topic.php?id=<?= $topic['id'] ?>&page=1"><?= $topic['title'] ?></a></td>
+        <td><a class="text-dark" title="<?/*= $topic['title'] */?>" href="topic.php?id=<?/*= $topic['id'] */?>&page=1"><?/*= $topic['title'] */?></a></td>
         <?php
-        try {
+/*        try {
             $query = 'SELECT `pseudo` FROM `users` WHERE id =' . $topic['id_users'];
             $userQueryStat = $db->query($query);
             $userList = $userQueryStat->fetchAll(PDO::FETCH_ASSOC);
@@ -24,12 +25,12 @@ if (isset($search)){
             }
         } catch (Exception $ex) {
             die('Connexion échoué');
-        } ?>
-        <td class="text-dark"><?= $topic['pseudo'] ?></td>
-        <td class="text-dark"><?= $topic['published_at'] ?></td>
-        <td class="text-dark"><?= $topic['created_at_formatted'] ?></td>
-    <?php endforeach;
-} else{
+        } */?>
+        <td class="text-dark"><?/*= $topic['pseudo'] */?></td>
+        <td class="text-dark"><?/*= $topic['published_at'] */?></td>
+        <td class="text-dark"><?/*= $topic['created_at_formatted'] */?></td>
+    --><?php /*endforeach;
+} else{*/
     try {
         //Récupération des informations de la table topic
         $topicQueryStat = $db->query("SELECT
@@ -57,5 +58,4 @@ JOIN `publications`
         <td><?= $topic['published_at_formatted'] ?></td>
         <td><?= $topic['created_at_formatted'] ?></td>
     <?php endforeach;
-}
-?>
+/*}*/ ?>

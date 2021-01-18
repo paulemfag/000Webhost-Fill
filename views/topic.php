@@ -9,7 +9,7 @@ require_once 'require/header.php';?>
         <a class="col-2" id="returnArrow" title="Fill | Forum" href="forum.php?page=1"><i class="fas fa-home" style="font-size: 50px;"></i></a>
         <h1 class="col-10"><?= $publicationsList[0]['title'] ?></h1>
     </div>
-    <?php if ($topics['id_users'] === $_SESSION['id']): ?>
+    <?php if ($publicationsList[0]['id_users'] === $_SESSION['id']): ?>
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-outline-danger text-light col-12 mt-2" data-toggle="modal" data-target="#deleteTopicModal">Supprimer le sujet</button>
         <!-- Modal -->
@@ -30,6 +30,14 @@ require_once 'require/header.php';?>
             </div>
         </div>
     <?php endif; ?>
+    <div class="card mt-2" style="border: none;">
+        <div class="card-body bg-primary">
+            <?= //Bouton permettant de supprimmer ses publications.
+            $deleteButton ?? '' ?>
+            <p class="card-text"><i><?= $linkToCompositorProfile ?? $publication['pseudo'] ?>, <?= $publication['published_at'] .' :' ?></i></p>
+            <p class="card-text"><?= $publication['message'] ?></p>
+        </div>
+    </div>
     <form class="mt-3" action="#" method="post" novalidate>
         <div class="form-group">
             <label class="text-light" for="message">Poster un message :</label>
@@ -74,15 +82,39 @@ require_once 'require/header.php';?>
                 <?php endif; ?>
             </ul>
         </nav>
-    <?php endif; ?>
-<?php foreach ($publicationsList AS $publication): ?>
+    <?php endif;
+    $i = 0;
+    foreach ($publicationsList AS $publication):
+        //On affiche pas le premier post car il est affiché en haut de la page.
+        if($i !== $publicationsListLength - 1){ ?>
     <div class="card mt-2" style="border: none;">
         <div class="card-body compositionsTables">
-            <p class="card-text"><i><?= $linkToCompositorProfile ?? $publication['pseudo'] ?>, <?= $publication['published_at'] .' :' ?></i></p>
+            <?= //Bouton permettant de supprimmer ses publications.
+            $deleteButton ?? '' ?>
+            <p class="card-text"><i><?= $pseudoDisplay ?></i></p>
             <p class="card-text"><?= $publication['message'] ?></p>
         </div>
     </div>
-<?php endforeach; ?>
+<?php   }
+    $i++;
+    endforeach; ?>
+</div>
+<!-- Modal suppression de publication -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title ml-auto mr-auto" id="exampleModalLabel">Supprimmer la publication :</h5>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">Êtes vous sûr de vouloir supprimer cette publication ?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger">Supprimer</button>
+            </div>
+        </div>
+    </div>
 </div>
 <?php //Pagination si il n'y a pas qu'une seule page
 if ($pages > 1) : ?>
@@ -117,7 +149,6 @@ require_once 'require/footer.php'; ?>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="../vendor/mervick/emojionearea/dist/emojionearea.min.js"></script>
 <script src="../assets/js/topic_min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>

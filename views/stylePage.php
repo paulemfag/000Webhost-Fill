@@ -13,8 +13,8 @@ echo $addToPlaylistStatus ?? ''; ?>
 <div class="row">
     <h1 class="text-center bg-light col-10 opacity mt-2 ml-auto mr-auto"><i class="fas fa-tag fa-sm"></i> Compositions Style <?= $style ?> :</h1>
 </div>
-    <?php require_once '../models/sqlstyle.php'; ?>
-<?php //Pagination si il n'y a pas qu'une seule page
+<?php require_once '../models/sqlstyle.php';
+//Pagination si il n'y a pas qu'une seule page
 if ($pages > 1) : ?>
     <nav class="col-md-12 mt-2 d-flex justify-content-center">
         <ul class="pagination custom-pagination">

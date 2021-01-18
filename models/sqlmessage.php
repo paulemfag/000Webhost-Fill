@@ -40,11 +40,11 @@ try {
         }
     }
     //Si l'utilisateur a confirmé la suppression du message à l'aide de la modal.
-    if($_GET['delete'] === 'ok'){
+    if(isset($_GET['delete']) && $_GET['delete'] === 'ok'){
         $sth = $db->prepare('DELETE FROM messages WHERE `id` = :idmessage');
         $sth->bindValue(':idmessage', $_GET['id'], PDO::PARAM_INT);
         $sth->execute();
-        header('location:messagerie.php?page=1&success=1&objet='. $object);
+        header('location:messagerie.php?page=1&success=1');
         exit();
     }
     try {

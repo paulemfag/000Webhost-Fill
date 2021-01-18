@@ -13,17 +13,17 @@ echo $sendingStatus ?? '';
 <form class="container" action="#" method="post" novalidate>
     <div class="form-group">
         <label class="text-light" for="pseudo"><i class="far fa-id-card"></i> Pseudo du destinataire :</label>
-        <span class="float-right text-danger"><?= $errors['pseudo'] ?></span>
+        <span class="float-right text-danger"><?= $errors['pseudo'] ?? '' ?></span>
         <input minlength="1" maxlength="50" id="pseudo" name="pseudo" type="text" class="col-12" placeholder="Veuillez saisir un pseudo" value="<?= $pseudo ?>">
     </div>
     <div class="form-group">
         <label class="text-light" for="objet"><i class="fas fa-bullseye"></i> Objet :</label>
-        <span class="float-right text-danger"><?= $errors['objet'] ?></span>
+        <span class="float-right text-danger"><?= $errors['objet'] ?? '' ?></span>
         <input minlength="1" maxlength="20" id="objet" name="objet" type="text" class="col-12" placeholder="Veuillez saisir l'objet du message" value="<?= $objet ?>">
     </div>
     <div class="form-group">
         <label class="text-light" for="message"><i class="fas fa-comment-alt"></i> Message :</label>
-        <span class="float-right text-danger"><?= $errors['message'] ?></span>
+        <span class="float-right text-danger"><?= $errors['message'] ?? '' ?></span>
         <textarea minlength="1" maxlength="500" class="col-12" name="message" id="message" cols="122" rows="4" placeholder="Veuillez saisir votre message"><?= $message ?></textarea>
     </div>
     <div class="form-group">

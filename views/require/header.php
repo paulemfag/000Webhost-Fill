@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (empty($_SESSION)){
+    session_start();
+}
 // si l'utilisateur n'est pas connecté
 if (empty($_SESSION)) {
     header('location:../index.php');
@@ -28,9 +30,6 @@ if (empty($_SESSION)) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <!-- CDN google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Odibee+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
-          integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
-          crossorigin="anonymous">
     <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
@@ -55,7 +54,7 @@ if ($_SESSION['accounttype'] === 'compositor'){ ?>
                     <a title="Ma page" class="nav-link text-light" href="mypage.php"><i class="far fa-address-card fa-lg"></i> Ma page</a>
                 </li>
                 <li class="nav-item">
-                    <a title="Messagerie" class="nav-link text-light" href="messagerie.php?page=1"><i class="fas fa-mail-bulk fa-lg"></i> Messagerie <?= $numberOfNewMessages['COUNT(`id`)'] ?></a>
+                    <a title="Messagerie" class="nav-link text-light" href="messagerie.php?page=1"><i class="fas fa-mail-bulk fa-lg"></i> Messagerie<?= $numberOfNewMessages ?></a>
                 </li>
                 <li class="nav-item">
                     <a title="Ajouter une composition" class="nav-link text-light" href="addcomposition.php"><i class="fas fa-cloud-upload-alt fa-lg"></i> Ajouter une composition</a>
@@ -119,7 +118,7 @@ elseif ($_SESSION['accounttype'] === 'particular'){ ?>
                 <li class="nav-item active">
                     <a title="Accueil" class="nav-link text-light" href="accueil.php"><i class="fas fa-home fa-lg"></i> Accueil<span class="sr-only">(current)</span></a>
                 </li>
-                    <a title="Messagerie" class="nav-link text-light" href="messagerie.php?page=1"><i class="fas fa-mail-bulk fa-lg"></i> Messagerie <?= $numberOfNewMessages['COUNT(`id`)'] ?></a>
+                    <a title="Messagerie" class="nav-link text-light" href="messagerie.php?page=1"><i class="fas fa-mail-bulk fa-lg"></i> Messagerie<?= $numberOfNewMessages ?></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a title="Liste des Playlists" class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownPlaylist" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bars fa-lg"></i> Playlists</a>

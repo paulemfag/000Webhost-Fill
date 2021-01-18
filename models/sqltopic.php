@@ -2,6 +2,7 @@
 if (empty($_GET['id'])){
     header('location:forum.php');
 }
+session_start();
 //Récupération de la liste des publications que contient le sujet
 try {
     $sth = $db->prepare('SELECT
@@ -19,7 +20,7 @@ try {
     INNER JOIN `users`
     ON publications.id_users = users.id
     WHERE topics.id = :id
-    ORDER BY `published_at` ASC
+    ORDER BY `published_at` DESC
     LIMIT ' .$start. ', ' .$limit);
     $sth->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
     $sth->execute();
@@ -27,29 +28,32 @@ try {
 } catch (Exception $ex) {
     die('Connexion échoué !');
 }
+//Récupération du nombre de publications.
+$publicationsListLength = count($publicationsList);
+//Bouton permettant de supprimmer son commentaire.
+foreach ($publicationsList AS $publication) {
+    if ($publication['id_users'] === $_SESSION['id']){
+        $deleteButton = '<button type="button" class="btn btn-sm btn-outline-danger float-right" data-toggle="modal" data-target="#deleteModal">Supprimer ma publication</button>';
+    }
+}
+//Affichage pour chaque post.
+foreach ($publicationsList AS $publication) {
+    $pseudoDisplay = $publication['pseudo'] .', '. $publication['published_at']. ' :';
+}
+//Affichage pour chaque post d'un compositeur (href vers page compositor.php en +).
 foreach ($publicationsList AS $publication){
-    if ($publicationsList[0]['accounttype'] === 'compositor'){
-        echo $publication['id_users'];
-        $linkToCompositorProfile = '<a class="text-dark" title="Profil de ' .$publication['pseudo']. '" href="compositor.php?id=' .$publication['id_users']. '">' .$publication['pseudo']. '</a>';
+    if ($publication['accounttype'] === 'compositor'){
+        $pseudoDisplay = '<a class="text-dark" title="Profil de ' . $publication['pseudo'] . '" href="compositor.php?id=' . $publication['id_users'] . '">' . $publication['pseudo'] . ' <i class="fas fa-music"></i></a> , ' .$publication['published_at']. ' :';
     }
 }
 //Si il n'y pas d'erreurs (form_validation.php : ligne 264) réalise l'insertion du message dans la table publications en BDD
-if ($insertMessage){
+if (isset($insertMessage)){
     try {
-        $sth = $db->prepare('UPDATE `topics` SET updated_at = CURRENT_TIMESTAMP WHERE `id` = :id');
-        $sth->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
-        $sth->execute();
-    } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
-    }
-    try {
-        $sth = $db->prepare('INSERT INTO `publications` (`message`, `published_at`, `id_topics`, `id_users`, `pseudo`) VALUES (:message, CURRENT_TIMESTAMP, `:id_topics`, `:id_user`, `:pseudo`)');
+        $sth = $db->prepare('INSERT INTO `publications` (`message`, `published_at`, `id_topics`, `id_users`) VALUES (:message, CURRENT_TIMESTAMP, :id_topics, :id_user)');
         $sth->bindValue(':message', $message, PDO::PARAM_STR);
         $sth->bindValue(':id_topics', $_GET['id'], PDO::PARAM_INT);
         $sth->bindValue(':id_user', $_SESSION['id'], PDO::PARAM_INT);
-        $sth->bindValue(':pseudo', $_SESSION['pseudo'], PDO::PARAM_STR);
         $sth->execute();
-        echo 'ok';
     } catch (PDOException $e) {
         echo "Erreur : " . $e->getMessage();
     }

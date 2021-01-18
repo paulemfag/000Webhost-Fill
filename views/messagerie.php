@@ -1,4 +1,7 @@
 <?php
+$title = 'Fill | Messagerie';
+require_once 'require/header.php';
+require_once '../models/sqlmessageriePagination.php';
 //Si la variable Get 'page' n'est pas définie.
 if (!filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT)){
     //On redirige vers la page 1
@@ -18,19 +21,14 @@ if ($_GET['page'] > $pages && $pages > 1){
     header('location:?page=1');
     exit();
 }
-$title = 'Fill | Messagerie';
-require_once 'require/header.php';
-require_once '../models/sqlmessageriePagination.php'; 
-if($_GET['success'] === '1'){
+if(isset($_GET['success']) && $_GET['success'] === '1'){
     echo '<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
             <i class="far fa-check-circle"></i> Le message " <strong>'. $_GET['objet'] .'</strong> " à bien été supprimé.
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
           </div>';
-}
-?>
-
+} ?>
 <div class="row">
     <h1 class="text-center bg-light col-10 opacity mt-2 ml-auto mr-auto"><i class="fas fa-mail-bulk"></i> Messagerie :</h1>
     <a href="newmessage.php" type="submit" class="btn btn-success mr-auto ml-auto col-10" style="button">Envoyer un message</a>

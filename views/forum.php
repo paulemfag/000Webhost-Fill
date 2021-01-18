@@ -6,7 +6,7 @@ require_once 'require/header.php';
 <div class="container mt-2">
     <div class="row" style="justify-content: center;">
         <form method="post">
-            <input value="<?= $_GET['search'] ?>" name="searchValue" id="searchValue" class="col-md-5 col-sm-2" type="search" placeholder="Entrez un sujet">
+            <input value="<?= $_GET['search'] ?? '' ?>" name="searchValue" id="searchValue" class="col-md-5 col-sm-2" type="search" placeholder="Entrez un sujet">
         </form>
         <a class="btn btn-outline-primary my-2 my-sm-0 ml-2 col-md-2 col-sm-2" href="forum.php?page=1&search=<?= $_POST['searchValue'] ?>" type="submit"><i class="fas fa-search"></i> Recherche</a>
         <a title="Créer un nouveau sujet" href="newsubject.php"

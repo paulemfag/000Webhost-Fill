@@ -5,7 +5,7 @@ try {
     $sth->execute();
     $topicExist = $sth->fetchAll(PDO::FETCH_ASSOC);
     if ($topicExist){
-        $errors['subject'] = '<i class="fas fa-exclamation-triangle"></i> Le sujet ' .$subject. ' exitste déjà.';
+        $errors['subject'] = '<i class="fas fa-exclamation-triangle"></i> Le sujet <b>' .$subject. '</b> exitste déjà.';
     }
 } catch (PDOException $e) {
     echo "Erreur : " . $e->getMessage();

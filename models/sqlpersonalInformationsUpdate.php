@@ -19,7 +19,7 @@ foreach ($userInformations as $row) {
     $facebookIdInDb = $row['facebookId'];
     $twitterIdInDb = $row['twitterId'];
 }
-if ($changePersonalInformations){
+if (isset($changePersonalInformations)){
     //Update en BDD
     try {
         $sth = $db->prepare('UPDATE `users` SET `biography` = :biography, `instruments` = :instruments, `software` = :software, `facebookId` = :facebookId, `twitterId` = :twitterId WHERE `pseudo` = :pseudo');
