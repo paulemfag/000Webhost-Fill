@@ -13,4 +13,6 @@ try {
 if ($numberOfNewMessages['COUNT(`id`)'] != NULL && $numberOfNewMessages['COUNT(`id`)'] != '0'){
     //On affiche le nombre de messages non lus entre parenthèses.
     $numberOfNewMessages['COUNT(`id`)'] = '( ' .$numberOfNewMessages['COUNT(`id`)']. ' )';
+} else{
+    $numberOfNewMessages = '';
 }

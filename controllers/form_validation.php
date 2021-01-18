@@ -348,7 +348,7 @@ if (isset($_POST['submitsubject'])) {
     }
     if (!empty($subject)){
         //Requiert le fichier sql qui vérifie si le nom du sujet n'existe pas déjà dans la table topics.
-        require_once 'sqlnewsubjectverification.php';
+        require_once '../models/sqlnewsubjectverification.php';
     }
     if (empty($message)) {
         $errors['message'] = '<i class="fas fa-exclamation-triangle"></i> Veuillez renseigner un message.';

@@ -2,12 +2,12 @@
 require_once '../models/sqltopicPagination.php';
 require_once '../controllers/form_validation.php';
 require_once '../models/sqltopic.php'; 
-$title = 'Forum | '. $publicationsList['title'];
+$title = 'Forum | '. $publicationsList[0]['title'];
 require_once 'require/header.php';?>
 <div class="container">
     <div class="row bg-light mt-2 opacity">
         <a class="col-2" id="returnArrow" title="Fill | Forum" href="forum.php?page=1"><i class="fas fa-home" style="font-size: 50px;"></i></a>
-        <h1 class="col-10"><?= $publicationsList['title'] ?></h1>
+        <h1 class="col-10"><?= $publicationsList[0]['title'] ?></h1>
     </div>
     <?php if ($topics['id_users'] === $_SESSION['id']): ?>
         <!-- Button trigger modal -->
@@ -24,7 +24,7 @@ require_once 'require/header.php';?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <a title="Supprimer le sujet | <?= $publicationsList['title'] ?>" href="?id=<?= $_GET['id'] ?>&page=<?= $_GET['page'] ?>&delete=1" class="btn btn-danger">Supprimer</a>
+                        <a title="Supprimer le sujet | <?= $publicationsList[0]['title'] ?>" href="?id=<?= $_GET['id'] ?>&page=<?= $_GET['page'] ?>&delete=1" class="btn btn-danger">Supprimer</a>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@ require_once 'require/header.php';?>
 <?php foreach ($publicationsList AS $publication): ?>
     <div class="card mt-2" style="border: none;">
         <div class="card-body compositionsTables">
-            <p class="card-text"><i><a class="text-dark" title="Profil de <?= $publication['pseudo'] ?>" href="mypage.php?id=<?= $publication['id_users'] ?>"><?= $publication['pseudo'] .'</a>, '. $publication['published_at'] .' :' ?></i></p>
+            <p class="card-text"><i><?= $linkToCompositorProfile ?? $publication['pseudo'] ?>, <?= $publication['published_at'] .' :' ?></i></p>
             <p class="card-text"><?= $publication['message'] ?></p>
         </div>
     </div>

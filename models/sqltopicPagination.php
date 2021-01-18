@@ -4,11 +4,10 @@ require_once 'sqlparameters.php';
 $limit = 20;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $start = ($page - 1) * $limit;
-$topicId = $_GET['id'];
 try {
     //Calcul du nombre de topics.
     $publicationQueryOne = $db->prepare("SELECT count(`id`) AS `id` FROM `publications` WHERE `id_topics` = :id");
-    $publicationQueryOne->bindValue(':id', $topicId, PDO::PARAM_INT);
+    $publicationQueryOne->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
     $publicationQueryOne->execute();
     $publicationCount = $publicationQueryOne->fetchAll(PDO::FETCH_ASSOC);
     //Stockage du nombre de topics dans la variable 'total'.

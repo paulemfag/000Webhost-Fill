@@ -5,13 +5,14 @@ if (empty($_GET['id'])){
 //Récupération de la liste des publications que contient le sujet
 try {
     $sth = $db->prepare('SELECT
-    topics.id
+    topics.id,
     topics.title,
     publications.id,
     publications.message,
     DATE_FORMAT(publications.published_at, \'le %d/%m/%Y\ à %HH%i\') `published_at`,
     publications.id_users,
-    users.pseudo
+    users.pseudo,
+    users.accounttype
     FROM `topics`
     INNER JOIN `publications`
     ON topics.id = publications.id_topics
@@ -25,6 +26,12 @@ try {
     $publicationsList = $sth->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $ex) {
     die('Connexion échoué !');
+}
+foreach ($publicationsList AS $publication){
+    if ($publicationsList[0]['accounttype'] === 'compositor'){
+        echo $publication['id_users'];
+        $linkToCompositorProfile = '<a class="text-dark" title="Profil de ' .$publication['pseudo']. '" href="compositor.php?id=' .$publication['id_users']. '">' .$publication['pseudo']. '</a>';
+    }
 }
 //Si il n'y pas d'erreurs (form_validation.php : ligne 264) réalise l'insertion du message dans la table publications en BDD
 if ($insertMessage){
