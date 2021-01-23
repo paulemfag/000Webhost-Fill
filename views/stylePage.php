@@ -1,12 +1,12 @@
 <?php
-if (empty($_GET['style'])) {
+if (!isset($_GET['style'])) {
     header('location:accueil.php');
     exit();
 }
 $style = $_GET['style'];
 $title = 'Fill | ' . $style;
-require_once 'require/header.php';
 require_once '../models/sqlstylePagination.php';
+require_once 'require/header.php';
 require_once '../models/sqlstyleAddToPlaylist.php';
 //Si l'entrée en base s'est correctement effectuée (récupération des paramètres d'url) affiche une alert bootstrap pour avertir l'utilisateur.
 echo $addToPlaylistStatus ?? ''; ?>

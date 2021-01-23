@@ -22,9 +22,10 @@ try {
 //Si la page sur laquelle on se trouve est supérieure à la dernière page
 if ($page > $pages) {
     //On redirige vers la dernière page
-    header('location:forum.php?page=' . $pages);
+    header('location:stylePage.php?style=' .$_GET['style']. '&page=' . $pages);
     exit();
-} elseif ($page < 1) {
-    header('location:forum.php?page=1');
+}
+if ($page < 1) {
+    header('location:stylePage.php?style=' .$_GET['style']. '&page=1');
     exit();
 }

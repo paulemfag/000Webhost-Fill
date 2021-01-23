@@ -26,8 +26,10 @@ try {
             <tbody>
         <?php
         //Pour chaque composition
+        $i = 0;
         $playlistListIdNumber = 1;
         foreach ($row as $rowInfo) {
+            $i++; echo $i;
             $playlistListIdNumber++;
             //récupération de l'id de l'user dans une variable pour récupérer son pseudo
             $idUser = $rowInfo['id_users'];
