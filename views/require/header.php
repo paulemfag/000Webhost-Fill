@@ -2,9 +2,16 @@
 if (empty($_SESSION)){
     session_start();
 }
-// si l'utilisateur n'est pas connecté
+//Si l'utilisateur n'est pas connecté
 if (empty($_SESSION)) {
+    //On redirige vers l'index.
     header('location:../index.php');
+}
+//Si l'utilisateur a le role d'admin(1), affichage du lien vers la page panneau d'administration.
+if ($_SESSION['role'] === '1'){
+    $administrationPanelLink = '<li class="nav-item">
+                                    <a title="Panneau  d\'administration" class="nav-link text-light" href="administrationPanel.php?page=1"><i class="fas fa-user-cog"></i> Panneau  d\'administration</a>
+                                </li>';
 }
 ?>
 <!DOCTYPE html>
@@ -50,6 +57,8 @@ if ($_SESSION['accounttype'] === 'compositor'){ ?>
                 <li class="nav-item active">
                     <a title="Accueil" class="nav-link text-light" href="accueil.php"><i class="fas fa-home fa-lg"></i> Accueil<span class="sr-only">(current)</span></a>
                 </li>
+                <?= //Affichage du lien vers panel d'admin
+                $administrationPanelLink ?? '' ?>
                 <li class="nav-item">
                     <a title="Ma page" class="nav-link text-light" href="mypage.php"><i class="far fa-address-card fa-lg"></i> Ma page</a>
                 </li>
@@ -118,6 +127,9 @@ elseif ($_SESSION['accounttype'] === 'particular'){ ?>
                 <li class="nav-item active">
                     <a title="Accueil" class="nav-link text-light" href="accueil.php"><i class="fas fa-home fa-lg"></i> Accueil<span class="sr-only">(current)</span></a>
                 </li>
+                <?= //Affichage du lien vers panel d'admin
+                $administrationPanelLink ?? '' ?>
+                <li>
                     <a title="Messagerie" class="nav-link text-light" href="messagerie.php?page=1"><i class="fas fa-mail-bulk fa-lg"></i> Messagerie<?= $numberOfNewMessages ?></a>
                 </li>
                 <li class="nav-item dropdown">

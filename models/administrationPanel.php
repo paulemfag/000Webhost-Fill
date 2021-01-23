@@ -1,22 +1,22 @@
 <?php
 try {
-    $query = $db->prepare('SELECT `role` FROM `users` WHERE `pseudo` = :pseudo');
-    $query->bindValue(':pseudo', $_SESSION['pseudo'], PDO::PARAM_STR);
+    $query = $db->prepare('SELECT `role` FROM `users` WHERE `id` = :id');
+    $query->bindValue(':id', $_SESSION['id'], PDO::PARAM_INT);
     $query->execute();
-    $userList = $sth->fetchAll(PDO::FETCH_ASSOC);
+    $userList = $query->fetchAll(PDO::FETCH_ASSOC);
     foreach ($userList AS $user) {
         $role = $user['role'];
     }
 } catch (Exception $ex) {
     die('Connexion échoué');
 }
-$usersQueryStat = $db->query("SELECT `id`, `pseudo`, `active`, `role`, `mailBox`, `accounttype`, `number_of_messages` FROM `users` LIMIT $start , $limit");
+$usersQueryStat = $db->query("SELECT `id`, `pseudo`, `active`, `role`, `mailBox`, `accounttype` FROM `users` LIMIT $start , $limit");
 $usersList = $usersQueryStat->fetchAll(PDO::FETCH_ASSOC);
-//récupération de l'id en GET quand on clique sur le bouton
+//Récupération de l'id en GET quand on clique sur le bouton supprimmer l'utilisateur.
 if (isset($_GET['id']) && filter_input(INPUT_GET,'id', FILTER_SANITIZE_NUMBER_INT)){
     //création d'une variable pour stocker la valeur
     $idGet = $_GET['id'];
-    //suppression de l'utilisateur dans la BDD
+    //Suppression de l'utilisateur dans la BDD.
     try {
         $sth = $db->prepare('DELETE FROM `users` WHERE `id` = ?');
         $sth->execute([$idGet]);

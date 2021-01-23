@@ -37,7 +37,6 @@ $searchValue = $_POST['searchValue'] ?? '';
 topics.id, 
 topics.title, 
 DATE_FORMAT(topics.created_at, 'le %d/%m/%Y\ à %HH%i') `created_at_formatted`, 
-topics.id_users, 
 users.pseudo,
 DATE_FORMAT(publications.published_at, 'le %d/%m/%Y\ à %HH%i') `published_at_formatted` 
 FROM `topics`
@@ -51,6 +50,7 @@ JOIN `publications`
     } catch (Exception $ex) {
         die('Connexion échoué');
     }
+    var_dump($topicList[0]);
     foreach ($topicList AS $topic): ?>
         <tr class="shadow">
         <td><a class="text-light" title="<?= $topic['title'] ?>" href="topic.php?id=<?= $topic['id'] ?>&page=1"><?= $topic['title'] ?></a></td>

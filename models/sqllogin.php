@@ -65,7 +65,6 @@ if ($stmt->execute(array(':pseudo' => $pseudo)) && $row = $stmt->fetch()) {
     }
     //Si le pseudo est bon(reconnu en BDD).
     if($pseudo === $_POST['pseudo']) {
-        echo $pseudo. ' ' .$_POST['pseudo'];
         $errors['login'] = '<i class="fas fa-exclamation-triangle"></i> Veuillez activer votre compte à l\'aide du lien d\'activation qui vous a été envoyé par mail afin de pouvoir vous connecter.';
     }
     //Sinon la connexion est refusé.

@@ -21,17 +21,19 @@ try {
 }
 //Si la variable Get 'page' n'est pas définie.
 if (!filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT)) {
-    //On redirige vers la page 1
-    header('location:forum.php?page=1');
+    //On redirige vers la première page.
+    header('location:administrationPanel.php?page=1');
     exit();
 }
-//Si la page demandée est supérieure à la dernière page
+//Si la page demandée est supérieure à la dernière page.
 if ($page > $pages) {
-    //On redirige vers la dernière page
-    header('location:forum.php?page=' . $pages);
+    //On redirige vers la dernière page.
+    header('location:administrationPanel.php?page=' . $pages);
     exit();
-} //Si la page demandée est inférieure à la première page
-elseif ($page < 1) {
-    header('location:forum.php?page=1');
+}
+//Si la page demandée est inférieure à la première page.
+if ($page < 1) {
+    //On redirige vers la première page.
+    header('location:administrationPanel.php?page=1');
     exit();
 }
