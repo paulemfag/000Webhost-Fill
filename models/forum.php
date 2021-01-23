@@ -50,7 +50,6 @@ JOIN `publications`
     } catch (Exception $ex) {
         die('Connexion échoué');
     }
-    var_dump($topicList[0]);
     foreach ($topicList AS $topic): ?>
         <tr class="shadow">
         <td><a class="text-light" title="<?= $topic['title'] ?>" href="topic.php?id=<?= $topic['id'] ?>&page=1"><?= $topic['title'] ?></a></td>
