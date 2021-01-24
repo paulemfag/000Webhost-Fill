@@ -11,7 +11,20 @@ try {
 }
 try {
     //Récupération des informations de la table composition selon le style
-    $stmt = $db->prepare("SELECT compositions.id, compositions.title, compositions.file, compositions.id_users FROM compositions INNER JOIN categories ON compositions.title = categories.title AND categories.style = :style ORDER BY title ASC LIMIT $start , $limit");
+    $stmt = $db->prepare("SELECT 
+compositions.id, 
+compositions.title, 
+compositions.file, 
+compositions.id_users,
+users.pseudo
+FROM `compositions` 
+JOIN `categories` 
+ON compositions.title = categories.title
+AND categories.style = :style 
+JOIN `users`
+ON compositions.id_users = users.id
+ORDER BY title ASC 
+LIMIT $start , $limit");
     if ($stmt->execute(array(':style' => $style)) && $row = $stmt->fetchAll(PDO::FETCH_ASSOC)) {
         ?>
         <table class="container compositionsTables mt-2 text-center">
@@ -29,27 +42,19 @@ try {
         $i = 0;
         $playlistListIdNumber = 1;
         foreach ($row as $rowInfo) {
-            $i++; echo $i;
+            $i++;
             $playlistListIdNumber++;
-            //récupération de l'id de l'user dans une variable pour récupérer son pseudo
-            $idUser = $rowInfo['id_users'];
-            $fileTitle = $rowInfo['title'];
             //génération des cases du tableau
             $composition =
                 '<tr>
-            <td><a class="text-dark" title="Page composition | ' .$fileTitle. '" href="composition.php?id=' .$rowInfo['id']. '">' .$fileTitle. '</a></td>';
-            $stmt = $db->prepare('SELECT `id`, `pseudo` FROM `users` WHERE id = :id');
-            if ($stmt->execute(array(':id' => $idUser)) && $row = $stmt->fetch()) {
-                //ajout du pseudo du compositeur au cases du tableaus
-                $composition = $composition . '<td><a class="text-dark" title="Profil compositeur | ' .$row['pseudo']. '" href="compositor.php?id=' .$row['id']. '">' . $row['pseudo'] . '</a></td>';
-            }
-            $composition = $composition .
-                '<td> 
+            <td><a class="text-dark" title="Page composition | ' .$rowInfo['title']. '" href="composition.php?id=' .$rowInfo['id']. '">' .$rowInfo['title']. '</a></td>
+            <td><a class="text-dark" title="Profil compositeur | ' .$rowInfo['pseudo']. '" href="compositor.php?id=' .$rowInfo['id_users']. '">' .$rowInfo['pseudo']. '</a></td>
+            <td> 
             <audio class="Audio" preload="auto" controls controlsList="nodownload">
             <source src="' . $rowInfo['file'] . '" type="audio/mp3">
             </audio>
             </td>
-            <td><a href="#" class="mt-1 dropdown-toggle mb-1 btn btn-sm btn-outline-success" id="playlistList' .$playlistListIdNumber. '" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Ajouter a la playlist <i class="fas fa-plus"></i></a>
+            <td><a href="#" class="mt-1 dropdown-toggle mb-1 btn btn-sm btn-success" id="playlistList' .$playlistListIdNumber. '" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">Ajouter a la playlist <i class="fas fa-plus"></i></a>
                         <div class="dropdown-menu" aria-labelledby="playlistList' .$playlistListIdNumber. '">';
             //déclaration d'une variable récupérant l'affichage pour chaque playlist
             foreach ($playlists as $playlist) {
